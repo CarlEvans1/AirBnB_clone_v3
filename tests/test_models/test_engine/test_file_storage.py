@@ -69,49 +69,6 @@ test_file_storage.py'])
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
-
-    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-    def test_get(self):
-        """Test the get method"""
-        storage = FileStorage()
-        new_state = State(name="California")
-        storage.new(new_state)
-        storage.save()
-        state_id = new_state.id
-        retrieved_state = storage.get(State, state_id)
-        self.assertEqual(new_state, retrieved_state)
-
-    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-    def test_get_not_found(self):
-        """Test the get method with object not found"""
-        storage = FileStorage()
-        retrieved_state = storage.get(State, "invalid_id")
-        self.assertIsNone(retrieved_state)
-
-    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-    def test_count_all(self):
-        """Test the count method with no class passed"""
-        storage = FileStorage()
-        initial_count = storage.count()
-        new_state = State(name="California")
-        storage.new(new_state)
-        storage.save()
-        updated_count = storage.count()
-        self.assertEqual(initial_count + 1, updated_count)
-
-    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
-    def test_count_by_class(self):
-        """Test the count method with class passed"""
-        storage = FileStorage()
-        initial_count = storage.count(State)
-        new_state = State(name="California")
-        storage.new(new_state)
-        storage.save()
-        updated_count = storage.count(State)
-        self.assertEqual(initial_count + 1, updated_count)
-
-class TestFileStorage(unittest.TestCase):
-    """Test the FileStorage class"""
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
     def test_all_returns_dict(self):
         """Test that all returns the FileStorage.__objects attr"""
